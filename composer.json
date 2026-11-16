@@ -1,0 +1,61 @@
+{
+    "name": "webstat/filament-analytics",
+    "description": "Self-hosted, privacy-friendly web analytics for Laravel with a deep Filament 5 integration (traffic, audience, heatmaps, forms, goals).",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "filament",
+        "analytics",
+        "heatmap",
+        "metrika"
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "laravel/framework": "^12.0",
+        "filament/filament": "^5.0",
+        "livewire/livewire": "^4.0",
+        "geoip2/geoip2": "^3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^3.0 || ^4.0"
+    },
+    "suggest": {
+        "ext-redis": "Needed for the redis write buffer (recommended for high traffic).",
+        "ext-intl": "Localised country names in the dashboard."
+    },
+    "autoload": {
+        "psr-4": {
+            "Webstat\\Analytics\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webstat\\Analytics\\Tests\\": "tests/"
+        },
+        "files": [
+            "tests/Support/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Webstat\\Analytics\\AnalyticsServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "scripts": {
+        "test": "pest"
+    }
+}

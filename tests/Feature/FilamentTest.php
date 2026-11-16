@@ -50,13 +50,20 @@ it('renders the dashboard in Russian and English', function (): void {
 it('switches the language from the dashboard', function (): void {
     $user = $this->admin();
 
-    Livewire::actingAs($user)->test(Audience::class)
-        ->call('setAnalyticsLanguage', 'ru')->assertRedirect();
+    $this->actingAs($user)
+        ->get('/admin/analytics/audience?lang=ru')
+        ->assertOk()
+        ->assertSee('Аудитория');
 
     expect(session('analytics.lang'))->toBe('ru');
 
-    Livewire::actingAs($user)->test(Audience::class)->call('setAnalyticsLanguage', 'xx');
-    expect(session('analytics.lang'))->toBe('ru'); // unsupported language is ignored
+    $this->withSession(['analytics.lang' => 'ru'])
+        ->actingAs($user)
+        ->get('/admin/analytics/audience?lang=xx')
+        ->assertOk()
+        ->assertSee('Аудитория');
+
+    expect(session('analytics.lang'))->toBe('ru');
 });
 
 it('keeps filters in Livewire state and the session', function (): void {
